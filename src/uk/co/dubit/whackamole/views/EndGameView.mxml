@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<views:EndGameViewBase xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:views="uk.co.dubit.whackamole.views.*"
+		 styleName="stretchToContainer">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:VGroup width="100%" height="100%" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10">
+		
+		<s:BorderContainer styleName="roundedBorder" minHeight="0" minWidth="0" width="100%" height="40" >
+			<s:Label styleName="titleLabel" text="Whack-A-Mole" horizontalCenter="0" verticalCenter="0"/>
+		</s:BorderContainer>
+		
+		<s:BorderContainer styleName="roundedBorder" minHeight="0" minWidth="0" width="100%" height="100%" >
+            <s:VGroup width="100%" height="100%" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10">
+                <s:Label styleName="titleLabel" text="Game Over!"
+                         horizontalCenter="0" width="100%" textAlign="center" />
+                <s:Label text="Your Score is:"
+                         horizontalCenter="0" width="100%" textAlign="center" />
+                <s:Label styleName="titleLabel" text="" id="playerScore"
+                         horizontalCenter="0" width="100%" textAlign="center" />
+				
+				<s:VGroup width="100%" height="100%" gap="10">
+					
+					<s:BorderContainer styleName="roundedBorder" minHeight="0" minWidth="0" width="100%" height="30" >
+						<s:Label text="Achievements" verticalCenter="0" horizontalCenter="0" />
+					</s:BorderContainer>
+					
+					<s:BorderContainer styleName="roundedBorder" minHeight="0" minWidth="0" width="100%" height="100%" >
+						<s:DataGroup
+							id="achievementsDataGroup"
+							dataProvider="{ unlockedAchievements }"
+							itemRenderer="uk.co.dubit.whackamole.views.AchievementItemRenderer"
+							horizontalCenter="0" verticalCenter="0">
+							<s:layout>
+								<s:TileLayout requestedColumnCount="6" requestedRowCount="1" horizontalGap="5"	verticalGap="5" />
+							</s:layout>				
+						</s:DataGroup>
+					</s:BorderContainer>	
+					
+				</s:VGroup>
+
+                <s:BorderContainer styleName="roundedBorder" minHeight="0" minWidth="0" width="100%" height="50%" >
+                    <s:Label styleName="titleLabel" text="Play Again!" horizontalCenter="0" top="10"/>
+					<s:Button id="easyButton" click="onRestartButtonClick(event)" label="Easy!" horizontalCenter="-100" bottom="10"/>
+					<s:Button id="mediumButton" click="onRestartButtonClick(event)" label="Skilled!" horizontalCenter="0" bottom="10"/>
+					<s:Button id="hardButton" click="onRestartButtonClick(event)" label="Veteran!" horizontalCenter="100" bottom="10"/>
+                </s:BorderContainer>
+            </s:VGroup>
+		</s:BorderContainer>
+		
+	</s:VGroup>
+	
+</views:EndGameViewBase>
