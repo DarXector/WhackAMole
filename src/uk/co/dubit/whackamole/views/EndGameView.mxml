@@ -20,7 +20,7 @@
                          horizontalCenter="0" width="100%" textAlign="center" />
                 <s:Label text="Your Score is:"
                          horizontalCenter="0" width="100%" textAlign="center" />
-                <s:Label styleName="titleLabel" text="" id="playerScore"
+                <s:Label styleName="titleLabel" text="{score}" id="playerScore"
                          horizontalCenter="0" width="100%" textAlign="center" />
 				
 				<s:VGroup width="100%" height="100%" gap="10">
@@ -45,9 +45,9 @@
 
                 <s:BorderContainer styleName="roundedBorder" minHeight="0" minWidth="0" width="100%" height="50%" >
                     <s:Label styleName="titleLabel" text="Play Again!" horizontalCenter="0" top="10"/>
-					<s:Button id="easyButton" click="onRestartButtonClick(event)" label="Easy!" horizontalCenter="-100" bottom="10"/>
-					<s:Button id="mediumButton" click="onRestartButtonClick(event)" label="Skilled!" horizontalCenter="0" bottom="10"/>
-					<s:Button id="hardButton" click="onRestartButtonClick(event)" label="Veteran!" horizontalCenter="100" bottom="10"/>
+					<s:Button id="easyButton" click="onEasyButtonClick(event)" label="Easy!" horizontalCenter="-100" bottom="10"/>
+					<s:Button id="mediumButton" click="onMediumButtonClick(event)" label="Skilled!" horizontalCenter="0" bottom="10"/>
+					<s:Button id="hardButton" click="onHardButtonClick(event)" label="Veteran!" horizontalCenter="100" bottom="10"/>
                 </s:BorderContainer>
             </s:VGroup>
 		</s:BorderContainer>

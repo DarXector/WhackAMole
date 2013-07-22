@@ -9,72 +9,57 @@ package uk.co.dubit.whackamole.views
 	import flash.events.MouseEvent;
 	
 	import mx.collections.ArrayCollection;
-	import mx.events.FlexEvent;
 	
-	import spark.components.Button;
 	import spark.components.Group;
 	import spark.components.Label;
 	
+	import uk.co.dubit.whackamole.models.GameLevels;
+	import uk.co.dubit.whackamole.models.GameResultsVO;
 	import uk.co.dubit.whackamole.views.events.GameViewsEvent;
+
 	
 	[Event(name="GameStart", type="uk.co.dubit.whackamole.views.events.GameViewsEvent")]
 	public class EndGameViewBase extends Group
 	{
 		public var playerScore:Label;
-		public var easyButton:Button;
-		public var mediumButton:Button;
-		public var hardButton:Button;
 		private var _level:int;
 		private var _score:String;
+		private var _gameResults:GameResultsVO;
 		
 		private var _unlockedAchievements:ArrayCollection;
 		
-		public function EndGameViewBase() 
-		{
-			addEventListener(FlexEvent.CREATION_COMPLETE, onCreationComplete);
-		}
 		
 		//Unlocked achievements for End Game Screen display
-		[Bindable]
-		public function get unlockedAchievements():ArrayCollection
+
+		public function set gameResults(value:GameResultsVO):void
 		{
-			return _unlockedAchievements;
+			_gameResults = value;
 		}
 
-		public function set unlockedAchievements(value:ArrayCollection):void
+		public function get unlockedAchievements():ArrayCollection
 		{
-			_unlockedAchievements = value;
+			return _gameResults.unlockedAchievements;
+		}
+		
+		public function get score():String
+		{
+			return _gameResults.score.toString();
 		}
 		
 		// Restarting the game with new difficulty level
-		protected function onRestartButtonClick(e:MouseEvent) : void
+		protected function onEasyButtonClick(e:MouseEvent) : void
 		{
-			var target:Button = e.currentTarget as Button;
-			
-			switch(target)
-			{
-				case easyButton:
-					_level = 1;
-					break;
-				case mediumButton: 
-					_level = 1.5;
-					break;
-				case hardButton: 
-					_level = 2;
-					break;
-				
-			}
-			dispatchEvent(new GameViewsEvent(GameViewsEvent.START, _level));
+			dispatchEvent(new GameViewsEvent(GameViewsEvent.START, GameLevels.EASY));
 		}
 		
-		public function set score(value:String) : void
+		protected function onMediumButtonClick(e:MouseEvent) : void
 		{
-			_score = value;
+			dispatchEvent(new GameViewsEvent(GameViewsEvent.START, GameLevels.MEDIUM));
 		}
 		
-		protected function onCreationComplete(event:FlexEvent) : void
+		protected function onHardButtonClick(e:MouseEvent) : void
 		{
-			playerScore.text = _score; // Displaying the new Score
+			dispatchEvent(new GameViewsEvent(GameViewsEvent.START, GameLevels.HARD));
 		}
 	}
 }

@@ -5,6 +5,7 @@ package uk.co.dubit.whackamole
 	import spark.components.Application;
 	import spark.components.Group;
 	
+	import uk.co.dubit.whackamole.models.GameResultsVO;
 	import uk.co.dubit.whackamole.models.MoleGame;
 	import uk.co.dubit.whackamole.models.events.MoleGameEvent;
 	import uk.co.dubit.whackamole.views.EndGameView;
@@ -19,7 +20,7 @@ package uk.co.dubit.whackamole
 	public class WhackAMoleBase extends Application
 	{
 		public var viewContainer:Group;
-		private var _currentLevel:int;
+		private var _currentLevel:String;
 				
 		public function WhackAMoleBase() : void
 		{
@@ -42,8 +43,7 @@ package uk.co.dubit.whackamole
 			var endGameView:EndGameView = new EndGameView();
 			endGameView.addEventListener(GameViewsEvent.START, startGame);
 			
-			endGameView.score = e.data.score.toString();
-			endGameView.unlockedAchievements = e.data.unlockedAchievements;
+			endGameView.gameResults = GameResultsVO(e.data); // Sending results
 			
 			loadView(endGameView);
 		}

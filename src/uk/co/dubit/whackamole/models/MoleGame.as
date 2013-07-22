@@ -6,6 +6,7 @@ package uk.co.dubit.whackamole.models
 	
 	import mx.collections.ArrayCollection;
 	
+	import uk.co.dubit.whackamole.models.GameLevels;
 	import uk.co.dubit.whackamole.models.events.AchievementEvent;
 	import uk.co.dubit.whackamole.models.events.MoleGameEvent;
 	import uk.co.dubit.whackamole.models.moles.FireMole;
@@ -24,7 +25,8 @@ package uk.co.dubit.whackamole.models
 	{
 		
 		private var _score:int = 0;
-		private var _level:int = 1;
+		private var _level:String = 'easy';
+		private var _levelIndex:int = 1; // Used to calculate the speed of moles appearing and dissappearing
 		private var _moleHoles:ArrayCollection = new ArrayCollection();
 		
 		private var gameTimer:Timer;
@@ -33,20 +35,43 @@ package uk.co.dubit.whackamole.models
 		private const TOTAL_MOLES:int = 60;
 		private var _achievements:Achievements;
 		private var _unlockedAchievements:ArrayCollection = new ArrayCollection(); // Storing unlocked achievements for display
+		private var _gameResults:GameResultsVO;
 		
-		public function MoleGame(level:int)
+		public function MoleGame(level:String)
 		{
 			//Set up the game timer; when it fires a new
 			//mole is added
 			_level = level;
 			
+			// Determening game level index according to the game level
+			switch(_level)
+			{
+				case GameLevels.EASY:
+					_levelIndex = 1;
+					break;
+				case GameLevels.MEDIUM: 
+					_levelIndex = 1.5;
+					break;
+				case GameLevels.HARD: 
+					_levelIndex = 2;
+					break;
+				
+			}
+			
+			_gameResults = new GameResultsVO();
+			
 			// Achievements calculation, condition checking
 			_achievements = new Achievements(this);
 			_achievements.addEventListener(AchievementEvent.ACHIEVEMENT_UNLOCKED, _onAchievementUnlocked); // Listening for unlocked achievement event
 			
-			gameTimer = new Timer(GAME_TIMER_DELAY / _level, TOTAL_MOLES); // Increasing mole frequency with difficulty level
+			gameTimer = new Timer(GAME_TIMER_DELAY / _levelIndex, TOTAL_MOLES); // Increasing mole frequency with difficulty level
 			gameTimer.addEventListener(TimerEvent.TIMER, onGameTimer);
 			gameTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onGameTimerComplete);
+		}
+
+		public function get levelIndex():int
+		{
+			return _levelIndex;
 		}
 
 		public function get unlockedAchievements():ArrayCollection
@@ -54,7 +79,7 @@ package uk.co.dubit.whackamole.models
 			return _unlockedAchievements;
 		}
 
-		public function get level():int
+		public function get level():String
 		{
 			return _level;
 		}
@@ -154,7 +179,9 @@ package uk.co.dubit.whackamole.models
 		
 		private function onGameTimerComplete(event:TimerEvent) : void
 		{
-			dispatchEvent(new MoleGameEvent(MoleGameEvent.GAME_OVER, {'score':score, 'unlockedAchievements':unlockedAchievements}));
+			_gameResults.score = score;
+			_gameResults.unlockedAchievements = unlockedAchievements;
+			dispatchEvent(new MoleGameEvent(MoleGameEvent.GAME_OVER, _gameResults));
 		}
 	}
 }

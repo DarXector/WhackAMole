@@ -17,9 +17,9 @@
 		<s:BorderContainer styleName="roundedBorder" minHeight="0" minWidth="0" width="100%" height="100%" >
 			<s:Label text="You know the drill - click the moles as soon as they appear, gain points. Hit as many as you can within the time limit. Good luck!"
 					 horizontalCenter="0" top="10" width="60%" textAlign="center" />
-			<s:Button id="easyButton" click="onStartButtonClick(event)" label="Easy!" horizontalCenter="0" bottom="90"/>
-			<s:Button id="mediumButton" click="onStartButtonClick(event)" label="Skilled!" horizontalCenter="0" bottom="50"/>
-			<s:Button id="hardButton" click="onStartButtonClick(event)" label="Veteran!" horizontalCenter="0" bottom="10"/>
+			<s:Button id="easyButton" click="onEasyButtonClick(event)" label="Easy!" horizontalCenter="0" bottom="90"/>
+			<s:Button id="mediumButton" click="onMediumButtonClick(event)" label="Skilled!" horizontalCenter="0" bottom="50"/>
+			<s:Button id="hardButton" click="onHardButtonClick(event)" label="Veteran!" horizontalCenter="0" bottom="10"/>
 		</s:BorderContainer>
 		
 	</s:VGroup>

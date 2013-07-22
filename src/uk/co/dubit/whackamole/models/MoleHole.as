@@ -62,7 +62,7 @@ package uk.co.dubit.whackamole.models
 			this.mole = mole;
 
 			showTimer.reset();
-			showTimer.delay = mole.showtime / _moleGame.level; // Decreasing time moles stays in the hole by level parameter
+			showTimer.delay = mole.showtime / _moleGame.levelIndex; // Decreasing time moles stays in the hole by level parameter
 			showTimer.start();
 		}
 		
